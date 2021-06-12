@@ -10,6 +10,23 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
+sentry_sdk.init(
+    dsn="https://bb48847e283e45a989ac2cf13d0221cc@o836675.ingest.sentry.io/5813436",
+    integrations=[DjangoIntegration()],
+
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate=1.0,
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
