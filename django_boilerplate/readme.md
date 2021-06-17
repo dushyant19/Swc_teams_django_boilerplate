@@ -1,4 +1,4 @@
-# Nodejs boilerplate    
+# Django boilerplate    
      This is yet another django boilerplate with docker to make dev easier .
 
 <img align="center" src="./public/images/landing.png"/>
