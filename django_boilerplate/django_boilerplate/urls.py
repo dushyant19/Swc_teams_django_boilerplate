@@ -14,9 +14,29 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
+from app.views import home
+from django.conf.urls.static import static  
+from django.conf import settings
+from django.shortcuts import redirect
 
+import os
+
+def redirecting(request):
+    return redirect(f"{os.getenv('BASE_URL')}/")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('',redirecting,name='redirecting'),
+    path(f'{os.getenv("BASE_URL")}/',include([
+        path('',home,name='home'),
+        # """
+        # Include your others paths here like
+        # 1.) path('some_route/', views.home, name='home')
+        # 2.) path('some_route/', Home.as_view(), name='home') for class based views
+        # 3.) path('some_route/', include('your_app_name.urls'))
+        # """
+    ]))
 ]
+
+urlpatterns+=static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
